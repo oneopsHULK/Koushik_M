@@ -2,7 +2,10 @@
 title: "AT-3"
 author: "Koushik"
 date: '2022-05-25'
-output: html_document
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -71,9 +74,10 @@ nrow(cds)
 
 ##List the number of rows with gene means less than 10 and calculate how many rows there are and what the total number of rows is
 
-hist(cds$mean,xlab="mean", main="Histogram of means")
 
-##Histogram of averages
+```{r}
+hist(cds$mean,xlab="mean", main="Histogram of means")
+```
 
 ###The following is an analysis of the data 'growth_data.csv'
 
