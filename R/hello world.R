@@ -6,6 +6,7 @@ download.file(URL,destfile=NAME)
 URL= "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessment_task3/bioinfo_asst3_part1_files/growth_data.csv"
 NAME= "growth_data.csv"
 download.file(URL,destfile=NAME)
+<<<<<<< HEAD
 
 read.delim("gene_expression.tsv")
 head(read.delim("gene_expression.tsv"))
@@ -112,3 +113,5 @@ HEADER=paste("P:",PVAL)
 mtext(HEADER)
 
 ##The p-values are calculated using ttest and wilcox.test respectively, and it can be seen that the p-values calculated using ttest are smaller, and the differences in the data over 10 years are directly applied in the calculation, and no mean values are involved
+=======
+>>>>>>> d3beb929cdff6bf5f19b5d70210ab0b84b652659
