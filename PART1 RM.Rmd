@@ -1,6 +1,6 @@
 ---
 title: "Part 1"
-author: "mengchi"
+author: "Koushik and Mengchi"
 date: '2022-05-25'
 output:
   pdf_document: default
@@ -37,11 +37,7 @@ URL= "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessme
 NAME= "gene_expression.tsv"
 download.file(URL,destfile=NAME)
 
-URL= "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessment_task3/bioinfo_asst3_part1_files/growth_data.csv"
-NAME= "growth_data.csv"
-download.file(URL,destfile=NAME)
-
-read.delim("gene_expression.tsv")
+head(read.delim("gene_expression.tsv"))
 head(read.delim("gene_expression.tsv"))
 str(read.delim("gene_expression.tsv"))
 
@@ -171,3 +167,6 @@ mtext(HEADER)
 
 
 ##The p-values are calculated using ttest and wilcox.test respectively, and it can be seen that the p-values calculated using ttest are smaller, and the differences in the data over 10 years are directly applied in the calculation, and no mean values are involved
+
+
+
