@@ -1,6 +1,6 @@
 ---
 title: "Part 1"
-author: "Koushik"
+author: "Koushik and Mengchi"
 date: '2022-05-25'
 output: html_document
 ---
@@ -33,10 +33,6 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 ```{r}
 URL= "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessment_task3/bioinfo_asst3_part1_files/gene_expression.tsv"
 NAME= "gene_expression.tsv"
-download.file(URL,destfile=NAME)
-
-URL= "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessment_task3/bioinfo_asst3_part1_files/growth_data.csv"
-NAME= "growth_data.csv"
 download.file(URL,destfile=NAME)
 
 head(read.delim("gene_expression.tsv"))
