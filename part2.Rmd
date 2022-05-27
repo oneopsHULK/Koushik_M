@@ -10,19 +10,50 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-library("R.utils")
+library("seqinr")
+URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/Streptococcus_thermophilus_cag_236_gca_000434755.MGS236.dna_rm.toplevel.fa.gz"
+download.file(URL,destfile="Streptococcus.fa.gz")
+gunzip("Streptococcus.fa.gz")
+list.files()
 
 
-URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/"
+cdss <- seqinr::read.fasta("Streptococcus.fa")
+str(head(cdss))
+
+URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655_gca_000005845/cds/Escherichia_coli_str_k_12_substr_mg1655_gca_000005845.ASM584v2.cds.all.fa.gz"
 download.file(URL,destfile="ecoli_cds.fa.gz")
 gunzip("ecoli_cds.fa.gz")
 list.files()
 
-library("seqinr")
-cds <- seqinr::read.fasta("ecoli_cds.fa")
-str(head(cds))
+cdse <- seqinr::read.fasta("ecoli_cds.fa")
+str(head(cdse))
 
-length(cds)
+##Download documents for two types of bacteria
+
+
+
+
+length(cdss)
+length(cdse)
+
+len1 <- as.numeric(summary(cdss)[,1])
+len2 <- as.numeric(summary(cdse)[,1])
+
+sum(len1)
+sum(len2)
+
+
+length(unlist(cdse[1:3]))
+length(unlist(cdss[1:3]))
+
+
+
+dna1 <- unlist(cdss)
+dna2
 
 ```
+
+
+
+
 
