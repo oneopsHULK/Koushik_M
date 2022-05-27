@@ -1,0 +1,28 @@
+---
+title: "part2"
+author: "Koushik"
+date: '2022-05-27'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("R.utils")
+
+
+URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/"
+download.file(URL,destfile="ecoli_cds.fa.gz")
+gunzip("ecoli_cds.fa.gz")
+list.files()
+
+library("seqinr")
+cds <- seqinr::read.fasta("ecoli_cds.fa")
+str(head(cds))
+
+length(cds)
+
+```
+
