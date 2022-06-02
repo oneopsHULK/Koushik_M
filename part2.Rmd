@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library("seqinr")
 URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/Streptococcus_thermophilus_cag_236_gca_000434755.MGS236.dna_rm.toplevel.fa.gz"
 download.file(URL,destfile="Streptococcus.fa.gz")
-gunzip("Streptococcus.fa.gz")
+gunzip ("Streptococcus.fa.gz")
 list.files()
 
 
@@ -49,8 +49,38 @@ length(unlist(cdss[1:3]))
 
 
 dna1 <- unlist(cdss)
-dna2
+dna2 <- unlist(cdse)
+```
+```{r}
+##calculating the length, mean, median and boxplot of cdss
 
+
+length(cdss)
+head(summary(cdss))
+str(summary(cdss))
+head(summary(cdss)[,1])
+len <- as.numeric(summary(cdss)[,1])
+sum(len)
+mean(len)
+median(len)
+
+boxplot(len)
+boxplot(len,ylab="sequence length (bp)")
+
+##calculating the length, mean, median and boxplot of cdse
+
+
+length(cdse)
+head(summary(cdse))
+str(summary(cdse))
+head(summary(cdse)[,1])
+len2 <- as.numeric(summary(cdse)[,1])
+sum(len2)
+mean(len2)
+median(len2)
+
+boxplot(len2)
+boxplot(len2,ylab="sequence length (bp)")
 ```
 
 
