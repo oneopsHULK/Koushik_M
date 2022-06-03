@@ -98,6 +98,16 @@ dna_composition <- count(dna,1)
 barplot(dna_composition,xlab="nucleotides",ylab="frequency", main="Streptococcus_composition")
 
 ```
+```{r}
+#protein sequence
+
+translate(cdss[[1]])
+prot <- lapply(cdss,translate)
+aa <- unique(prot[[2]])
+aa <- aa[aa != "*"]
+length(aa)
+
+```
 
 
 
