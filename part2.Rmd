@@ -118,12 +118,19 @@ uco(cdss[[2]])
 
 uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
 codon <- uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+codon
 
+install.packages("kableExtra")
+library(kableExtra)
+
+kbl(codon)
 codon %>%
   kbl() %>%
   kable_paper("hover", full_width = F) %>%
+
 plot(codon)
 
+plot($AA, codon$freq)
 #codon for E.coli
 
 uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
