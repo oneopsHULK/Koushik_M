@@ -14,9 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ## question 1
 ## Dowlonding the whole set of coding sequences of both orgamism 
 library("seqinr")
+library("kableExtra") #
+library("R.utils")
+library("seqinr")
 URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/Streptococcus_thermophilus_cag_236_gca_000434755.MGS236.dna_rm.toplevel.fa.gz"
 download.file(URL,destfile="Streptococcus.fa.gz")
-gunzip ("Streptococcus.fa.gz")
+gunzip("Streptococcus.fa.gz")
 list.files()
 
 
@@ -101,19 +104,21 @@ barplot(dna_composition,xlab="nucleotides",ylab="frequency", main="Streptococcus
 ```{r}
 #protein sequence
 
-translate(cdss[[1]])
+head(translate(cdss[[1]]))
 prot <- lapply(cdss,translate)
+prot2 <- lapply(cdse,translate)
 aa <- unique(prot[[2]])
 aa <- aa[aa != "*"]
 length(aa)
 
 ```
 ```{r}
-#downloading the kable extra package 
-install.packages("kableExtra")
 
+
+##question 4
 ##Create a codon usage table and quantify the codon usage bias among all coding sequences
-#codon for streptococcus 
+##codon for streptococcus 
+
 
 uco(cdss[[2]])
 
@@ -122,14 +127,19 @@ codon <- uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
 codon
 
 install.packages("kableExtra")
-library(kableExtra)
 
-kbl(codon)
+library("seqinr")
+library("kableExtra") 
+library("R.utils")
+
+uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+codon <- uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
 codon %>%
   kbl() %>%
-  kable_paper("hover", full_width = F) %>%
+  kable_styling()
 
 plot(codon)
+
 
 #codon for E.coli
 
@@ -144,10 +154,12 @@ plot(codon_e)
 ```
 
 ```{r}
+##question 5
 ##k-mer profiling for streptococcus
 
+protein <- unlist(prot2)
 
-protein <- unlist(prot)
+
 
 kmer <- count(protein,wordsize=3,alphabet=aa)
 
@@ -156,11 +168,13 @@ head(kmer)
 myfreq <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
 myfreq1 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
 myfreq2 <- count(protein,wordsize=5,alphabet=aa,freq=TRUE)
-order(myfreq)
+head(order(myfreq))
 head(myfreq,n=10)
 tail(myfreq,n=10)
 
 ##k-mer profilling for streptococcus
+
+
 
 protein <- unlist(prot2)
 
@@ -171,10 +185,14 @@ head(kmer_e)
 myfreq3 <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
 myfreq4 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
 myfreq5 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
-order(myfreq2)
+head(order(myfreq2))
 head(myfreq2,n=10) #  under expressed for k-mer of length 3 for e.coli
 tail(myfreq2,n=10) #  over expressed for k-mer of length 3 for e.coli
 
+
+
+##why do you think these sequences are present at different levels in the genomes of these organisms?
+##Because there are different life activities that require different proteins to be encoded, the frequency combinations of genes are not the same
 ```
 
 
