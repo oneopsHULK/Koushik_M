@@ -1,7 +1,7 @@
 ---
-title: "part2"
-author: "Koushik"
-date: '2022-05-27'
+title: "Part 2"
+author: "Koushik and Mengchi"
+date: '2022-05-25'
 output: html_document
 ---
 
@@ -81,6 +81,22 @@ median(len2)
 
 boxplot(len2)
 boxplot(len2,ylab="sequence length (bp)")
+```
+```{r}
+##question3
+
+
+##Calculate the frequency of DNA bases in the total coding sequences for both organisms
+
+count(cdss[[1]],3)
+
+dna <- unlist(cdss)
+
+GC(dna)
+
+dna_composition <- count(dna,1)
+barplot(dna_composition,xlab="nucleotides",ylab="frequency", main="Streptococcus_composition")
+
 ```
 
 
