@@ -79,7 +79,6 @@ sum(len2)
 mean(len2)
 median(len2)
 
-boxplot(len2)
 boxplot(len2,ylab="sequence length (bp)")
 ```
 ```{r}
@@ -108,7 +107,68 @@ aa <- aa[aa != "*"]
 length(aa)
 
 ```
+```{r}
+#downloading the kable extra package 
+install.packages("kableExtra")
 
+##Create a codon usage table and quantify the codon usage bias among all coding sequences
+#codon for streptococcus 
+
+uco(cdss[[2]])
+
+uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+codon <- uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+
+codon %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F) %>%
+plot(codon)
+
+#codon for E.coli
+
+uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
+codon_e <- uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
+codon_e %>%
+  kbl() %>%
+  kable_styling()
+
+plot(codon_e)
+
+```
+
+```{r}
+##k-mer profiling for streptococcus
+
+
+protein <- unlist(prot)
+
+kmer <- count(protein,wordsize=3,alphabet=aa)
+
+head(kmer)
+
+myfreq <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
+myfreq1 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+myfreq2 <- count(protein,wordsize=5,alphabet=aa,freq=TRUE)
+order(myfreq)
+head(myfreq,n=10)
+tail(myfreq,n=10)
+
+##k-mer profilling for streptococcus
+
+protein <- unlist(prot2)
+
+kmer_e <- count(protein,wordsize=3,alphabet=aa)
+
+head(kmer_e)
+
+myfreq3 <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
+myfreq4 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+myfreq5 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+order(myfreq2)
+head(myfreq2,n=10) #  under expressed for k-mer of length 3 for e.coli
+tail(myfreq2,n=10) #  over expressed for k-mer of length 3 for e.coli
+
+```
 
 
 
