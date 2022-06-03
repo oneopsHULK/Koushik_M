@@ -130,7 +130,6 @@ codon %>%
 
 plot(codon)
 
-plot($AA, codon$freq)
 #codon for E.coli
 
 uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
