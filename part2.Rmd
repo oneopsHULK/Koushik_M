@@ -1,7 +1,7 @@
 ---
-title: "part2"
-author: "Koushik"
-date: '2022-05-27'
+title: "Part 2"
+author: "Koushik and Mengchi"
+date: '2022-05-25'
 output: html_document
 ---
 
@@ -10,19 +10,167 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-library("R.utils")
+library("seqinr")
+URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/Streptococcus_thermophilus_cag_236_gca_000434755.MGS236.dna_rm.toplevel.fa.gz"
+download.file(URL,destfile="Streptococcus.fa.gz")
+gunzip ("Streptococcus.fa.gz")
+list.files()
 
 
-URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_121_collection/streptococcus_thermophilus_cag_236_gca_000434755/dna/"
+cdss <- seqinr::read.fasta("Streptococcus.fa")
+str(head(cdss))
+
+URL="http://ftp.ensemblgenomes.org/pub/bacteria/release-53/fasta/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655_gca_000005845/cds/Escherichia_coli_str_k_12_substr_mg1655_gca_000005845.ASM584v2.cds.all.fa.gz"
 download.file(URL,destfile="ecoli_cds.fa.gz")
 gunzip("ecoli_cds.fa.gz")
 list.files()
 
-library("seqinr")
-cds <- seqinr::read.fasta("ecoli_cds.fa")
-str(head(cds))
+cdse <- seqinr::read.fasta("ecoli_cds.fa")
+str(head(cdse))
 
-length(cds)
+##Download documents for two types of bacteria
+
+
+
+
+length(cdss)
+length(cdse)
+
+len1 <- as.numeric(summary(cdss)[,1])
+len2 <- as.numeric(summary(cdse)[,1])
+
+sum(len1)
+sum(len2)
+
+
+length(unlist(cdse[1:3]))
+length(unlist(cdss[1:3]))
+
+
+
+dna1 <- unlist(cdss)
+dna2 <- unlist(cdse)
+```
+```{r}
+##calculating the length, mean, median and boxplot of cdss
+
+
+length(cdss)
+head(summary(cdss))
+str(summary(cdss))
+head(summary(cdss)[,1])
+len <- as.numeric(summary(cdss)[,1])
+sum(len)
+mean(len)
+median(len)
+
+boxplot(len)
+boxplot(len,ylab="sequence length (bp)")
+
+##calculating the length, mean, median and boxplot of cdse
+
+
+length(cdse)
+head(summary(cdse))
+str(summary(cdse))
+head(summary(cdse)[,1])
+len2 <- as.numeric(summary(cdse)[,1])
+sum(len2)
+mean(len2)
+median(len2)
+
+boxplot(len2,ylab="sequence length (bp)")
+```
+```{r}
+##question3
+
+
+##Calculate the frequency of DNA bases in the total coding sequences for both organisms
+
+count(cdss[[1]],3)
+
+dna <- unlist(cdss)
+
+GC(dna)
+summary(cdss[1:3])
+dna_composition <- count(dna,1)
+barplot(dna_composition,xlab="nucleotides",ylab="frequency", main="Streptococcus_composition")
 
 ```
+```{r}
+#protein sequence
+
+translate(cdss[[1]])
+prot <- lapply(cdss,translate)
+aa <- unique(prot[[2]])
+aa <- aa[aa != "*"]
+length(aa)
+
+```
+```{r}
+#downloading the kable extra package 
+install.packages("kableExtra")
+
+##Create a codon usage table and quantify the codon usage bias among all coding sequences
+#codon for streptococcus 
+
+uco(cdss[[2]])
+
+uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+codon <- uco(cdss[[2]],index="rscu",as.data.frame=TRUE)
+
+codon %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F) %>%
+plot(codon)
+
+#codon for E.coli
+
+uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
+codon_e <- uco(cdse[[2]],index="rscu",as.data.frame=TRUE)
+codon_e %>%
+  kbl() %>%
+  kable_styling()
+
+plot(codon_e)
+
+```
+
+```{r}
+##k-mer profiling for streptococcus
+
+
+protein <- unlist(prot)
+
+kmer <- count(protein,wordsize=3,alphabet=aa)
+
+head(kmer)
+
+myfreq <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
+myfreq1 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+myfreq2 <- count(protein,wordsize=5,alphabet=aa,freq=TRUE)
+order(myfreq)
+head(myfreq,n=10)
+tail(myfreq,n=10)
+
+##k-mer profilling for streptococcus
+
+protein <- unlist(prot2)
+
+kmer_e <- count(protein,wordsize=3,alphabet=aa)
+
+head(kmer_e)
+
+myfreq3 <- count(protein,wordsize=3,alphabet=aa,freq=TRUE)
+myfreq4 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+myfreq5 <- count(protein,wordsize=4,alphabet=aa,freq=TRUE)
+order(myfreq2)
+head(myfreq2,n=10) #  under expressed for k-mer of length 3 for e.coli
+tail(myfreq2,n=10) #  over expressed for k-mer of length 3 for e.coli
+
+```
+
+
+
+
 

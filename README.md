@@ -1,2 +1,2 @@
 # Koushik_M
-it should work now
+This is assessment task 3.Bioinformatics assignment 
