@@ -3,8 +3,9 @@ title: "Part 1"
 author: "Koushik and Mengchi"
 date: '2022-05-25'
 output:
-  pdf_document: default
   html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -48,9 +49,9 @@ str(read.delim("gene_expression.tsv"))
 cds = read.delim("gene_expression.tsv")
 
 head(cds)
-row.names(cds)
+head(row.names(cds))
 row.names(cds) = cds$Name_Description
-row.names(cds)
+head(row.names(cds))
 ```
 
 ##Change the name of the row from a number to the name of the gene
@@ -70,16 +71,16 @@ head(cds,6)
 ##Add a column to show the average of the gene values and display the first six sets of data
 
 ```{r}
-order(-cds$mean)
+head(order(-cds$mean))
 sorted <- cds[order(-cds$mean),]
-sorted[,c(4,ncol(sorted))]
+head(sorted[,c(4,ncol(sorted))])
 head(sorted[,c(4,ncol(sorted))],10)
 ```
 
 ##List the 10 genes with the highest mean expression
 
 ```{r}
-subset(cds,mean < 10)
+head(subset(cds,mean < 10))
 nrow(subset(cds,mean < 10))
 nrow(cds)
 ```
@@ -171,6 +172,7 @@ mtext(HEADER)
 
 
 ##The p-values are calculated using ttest and wilcox.test respectively, and it can be seen that the p-values calculated using ttest are smaller, and the differences in the data over 10 years are directly applied in the calculation, and no mean values are involved
+
 
 
 
