@@ -109,6 +109,13 @@ length(aa)
 
 ```
 
+```{r}
+##Create a codon usage table and quantify the codon usage bias among all coding sequences
+
+uco(cdss[[2]])
+
+uco(cdss[[2]],index="rscu")
+```
 
 
 
